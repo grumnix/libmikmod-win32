@@ -17,7 +17,7 @@
             version = "3.3.11.1";
 
             src = pkgs.fetchurl {
-                    url = "mirror://sourceforge/mikmod/libmikmod-${version}.tar.gz";
+              url = "mirror://sourceforge/mikmod/libmikmod-${version}.tar.gz";
               sha256 = "06bdnhb0l81srdzg6gn2v2ydhhaazza7rshrcj3q8dpqr3gn97dd";
             };
 
@@ -25,6 +25,11 @@
               "-DENABLE_DSOUND=OFF"
               "-DENABLE_DOC=OFF"
             ];
+
+            postFixup = ''
+              # FIXME: This doesn't get installed automatically for some reason
+              install libmikmod.dll $out/bin/
+            '';
 
             nativeBuildInputs = [
               pkgs.buildPackages.cmake
